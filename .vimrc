@@ -79,3 +79,5 @@ Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+autocmd VimEnter * NERDTree | wincmd p
