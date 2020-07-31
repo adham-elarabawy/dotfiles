@@ -56,12 +56,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 "}}
 
-"{{ Color-scheme
-Plug 'morhetz/gruvbox'
-  set background=dark
-  colorscheme gruvbox
-  let g:gruvbox_contrast_dark='default'
-"}}
+Plug 'chriskempson/base16-vim'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme='papercolor'
 
 "{{ Autopairs
 " ---> closing XML tags <---
@@ -81,3 +80,5 @@ call plug#end()
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 autocmd VimEnter * NERDTree | wincmd p
+
+let g:airline_powerline_fonts = 1
