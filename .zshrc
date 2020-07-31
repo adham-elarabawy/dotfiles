@@ -15,7 +15,7 @@ ZSH_THEME="af-magic"
 alias home='cd ~'
 alias ..='cd ..'
 alias clr='clear'
-
+alias xx='exit'
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
