@@ -1,50 +1,79 @@
-"""" Enable Vundle: vim plugin manager
-
-" required before Vundle initialization
-set nocompatible        " disable compatibility mode with vi
-filetype off            " disable filetype detection (but re-enable later, see below)
-
-" set the runtime path to include Vundle, and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'wting/rust.vim' " enable syntax highlighting for rust
-call vundle#end()
-
-
-"""" Basic Behavior
-
-set number              " show line numbers
-set wrap                " wrap lines
-set encoding=utf-8      " set encoding to UTF-8 (default was "latin1")
-set mouse=a             " enable mouse support (might not work well on Mac OS X)
-set wildmenu            " visual autocomplete for command menu
-set lazyredraw          " redraw screen only when we need to
-set showmatch           " highlight matching parentheses / brackets [{()}]
-set laststatus=2        " always show statusline (even with only single window)
-set ruler               " show line and column number of the cursor on right side of statusline
-set visualbell          " blink cursor on error, instead of beeping
-
-
-"""" Key Bindings
-
-" move vertically by visual line (don't skip wrapped lines)
-nmap j gj
-nmap k gk
-
-
-"""" Vim Appearance
-
-" put colorscheme files in ~/.vim/colors/
-colorscheme atom-dark-256     " good colorschemes: murphy, slate, molokai, badwolf, solarized
-
-" use filetype-based syntax highlighting, ftplugins, and indentation
-syntax enable
+syntax on
+set number
+set nocompatible
+set encoding=utf-8
 filetype plugin indent on
+call plug#begin('~/.vim/plugged')
+"{{ Configuring NerdTree
+Plug 'scrooloose/nerdtree'
 
+  " ---> to hide unwanted files <---
+  let NERDTreeIgnore = [ '__pycache__', '\.pyc$', '\.o$', '\.swp',  '*\.swp',  'node_modules/' ]
+" ---> show hidden files <---
+  let NERDTreeShowHidden=1
+" ---> autostart nerd-tree when you start vim <---
+  autocmd vimenter * NERDTree
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:stdn_in") | NERDTree | endif
+" ---> toggling nerd-tree using Ctrl-N <---
+  map <C-n> :NERDTreeToggle<CR>
+"}}
 
-"""" Tab settings
+"{{ Configuring YouCompleteMe
+Plug 'valloric/youcompleteme', { 'do': './install.py' }
 
-set tabstop=4           " width that a <TAB> character displays as
-set expandtab           " convert <TAB> key-presses to spaces
-set shiftwidth=4        " number of spaces to use for each step of (auto)indent
+  " ---> youcompleteme configuration <---
+  let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
+  " ---> compatibility with another plugin (ultisnips) <---
+  let g:ycm_key_list_select_completion = [ '<C-n>', '<Down>' ]
+  let g:ycm_key_list_previous_completion = [ '<C-p>', '<Up>' ]
+  let g:SuperTabDefaultCompletionType = '<C-n>'
+" ---> disable preview window <---
+  set completeopt-=preview
+" ---> navigating to the definition of a a symbol <---
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"}}
+
+"{{ Configuring CtrlP
+Plug 'ctrlpvim/ctrlp.vim'
+"}}
+
+"{{ Configuring UltiSnips
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+  let g:UltiSnipsExpandTrigger = "<tab>"
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"}}
+
+"{{ Git integration
+" ---> git commands within vim <---
+Plug 'tpope/vim-fugitive'
+" ---> git changes on the gutter <---
+Plug 'airblade/vim-gitgutter'
+" ---> nerdtree git changes <---
+Plug 'Xuyuanp/nerdtree-git-plugin'
+"}}
+
+"{{ Color-scheme
+Plug 'morhetz/gruvbox'
+  set background=dark
+  colorscheme gruvbox
+  let g:gruvbox_contrast_dark='default'
+"}}
+
+"{{ Autopairs
+" ---> closing XML tags <---
+Plug 'alvan/vim-closetag'
+" ---> files on which to activate tags auto-closing <---
+  let g:closetag_filenames = '*.html,*.xhtml,*.xml,*.vue,*.phtml,*.js,*.jsx,*.coffee,*.erb'
+" ---> closing braces and brackets <---
+Plug 'jiangmiao/auto-pairs'
+"}}
+
+"{{ TMux - Vim integration
+Plug 'christoomey/vim-tmux-navigator'
+"}}
+
+call plug#end()
