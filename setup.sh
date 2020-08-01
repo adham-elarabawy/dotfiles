@@ -1,3 +1,3 @@
-ln -sv ~/Documents/GitHub/dotfiles/.zshrc ~
-ln -sv ~/Documents/GitHub/dotfiles/.vimrc ~
-ln -sv ~/Documents/GitHub/dotfiles/.tmux.conf ~
+ln -sv ~/dotfiles/.zshrc ~
+ln -sv ~/dotfiles/.vimrc ~
+ln -sv ~/dotfiles/.tmux.conf ~
